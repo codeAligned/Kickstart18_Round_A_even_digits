@@ -1,0 +1,113 @@
+#include <iostream>
+
+using namespace std;
+int_fast64_t TotalDigitsI,EvenDigitsI,TotalDigitsD,EvenDigitsD,cN;
+
+int_fast64_t checkTotal(int_fast64_t N)
+{
+    int_fast64_t c=0;
+    register int_fast64_t i;
+
+    if(N==0)
+        return 1;
+
+    while(N)
+    {
+        N=N/10;
+        c++;
+    }
+    return c;
+}
+int_fast64_t checkEven(int_fast64_t N)
+{
+   int_fast64_t c,r;
+   r=c=0;
+   register int_fast64_t i;
+
+   if(N==0)
+    return 1;
+
+   while(N)
+   {
+       r=N%10;
+
+       if(r%2==0)
+        c++;
+
+       N=N/10;
+   }
+   return c;
+}
+
+
+int_fast64_t checkI(int N) //Finds the number of increment
+{
+   if(TotalDigitsI==EvenDigitsI)
+   {
+       return (N-cN);
+   }
+   else
+  {
+     N++;
+     TotalDigitsI=checkTotal(N);
+     EvenDigitsI=checkEven(N);
+     checkI(N);
+
+  }
+}
+
+
+int_fast64_t checkD(int_fast64_t N) //Finds the number of decrement
+{
+   if(TotalDigitsD==EvenDigitsD)
+   {
+      return(cN-N);
+   }
+   else
+  {
+     N--;
+     TotalDigitsD=checkTotal(N);
+     EvenDigitsD=checkEven(N);
+     checkD(N);
+
+  }
+}
+
+int_fast64_t les(int64_t pl,int64_t mi)
+{
+    if(pl<mi)
+     return pl;
+   else if(pl>mi)
+     return mi;
+    else
+      return pl;
+}
+
+int main()
+{
+    register int_fast64_t i=0;
+   system("color 0C");
+  int_fast64_t N,pl,mi,test;
+  cin>>test;
+
+  while(i<test)
+  {
+    cout<<'\n';
+  cin>>N;
+  cN=N;
+
+  TotalDigitsD=TotalDigitsI=checkTotal(N);
+
+  EvenDigitsD=EvenDigitsI=checkEven(N);
+
+   pl=checkI(N);
+   mi=checkD(N);
+   cout<<"\n";
+
+   cout<<"Case #"<<(i+1)<<": "<<les(pl,mi)<<'\n';
+        i++;
+  }
+
+
+    return 0;
+}
